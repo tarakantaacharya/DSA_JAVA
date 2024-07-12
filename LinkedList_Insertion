@@ -1,0 +1,118 @@
+import java.util.Scanner;
+
+class Node {
+    int value;
+    Node next;
+    Node(int value) {
+        this.value = value;
+        this.next = null;
+    }
+}
+
+public class LinkedList {
+    Node head;
+
+    // Method to insert a node at the beginning
+    public void insbeg(int data) {
+        Node newnode = new Node(data);
+        if (head == null) {
+            head = newnode;
+        } else {
+            newnode.next = head;
+            head = newnode;
+        }
+    }
+
+    // Method to insert a node at the end
+    public void inslast(int data) {
+        Node newnode = new Node(data);
+        Node temp = head;
+        if (head == null) {
+            head = newnode;
+        } else {
+            while (temp.next != null) {
+                temp = temp.next;
+            }
+            temp.next = newnode;
+        }
+    }
+
+    // Method to insert a node at a specific position
+    public void insmid(int data) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the position:");
+        int pos = sc.nextInt();
+
+        if (pos < 1) {
+            System.out.println("Invalid position.");
+            return;
+        }
+
+        Node newnode = new Node(data);
+        Node temp = head;
+        
+        if (head == null && pos == 1) {
+            head = newnode;
+            return;
+        } else if (head == null) {
+            System.out.println("Invalid position.");
+            return;
+        }
+
+        for (int i = 1; i < pos - 1 && temp != null; i++) {
+            temp = temp.next;
+        }
+
+        if (temp == null) {
+            System.out.println("Position out of bounds.");
+        } else {
+            newnode.next = temp.next;
+            temp.next = newnode;
+        }
+    }
+
+    // Method to display the list
+    public void display() {
+        Node temp = head;
+        while (temp != null) {
+            System.out.print(temp.value + " ");
+            temp = temp.next;
+        }
+        System.out.println("null");
+    }
+
+    public static void main(String args[]) {
+        LinkedList list = new LinkedList();
+        Scanner sc = new Scanner(System.in);
+        System.out.println("---LinkedList---");
+        System.out.println("1.InsBeg 2.Inslast 3.Insmid 4.Display");
+
+        while(true) {
+            System.out.println("Enter your choice:");
+            int ch = sc.nextInt();
+            switch(ch) {
+                case 1:
+                    System.out.println("Enter the data:");
+                    int data = sc.nextInt();
+                    list.insbeg(data);
+                    break;
+                case 2:
+                    System.out.println("Enter the data:");
+                    data = sc.nextInt();
+                    list.inslast(data);
+                    break;
+                case 3:
+                    System.out.println("Enter the data:");
+                    data = sc.nextInt();
+                    list.insmid(data);
+                    break;
+                case 4:
+                    System.out.println("List after inserting at the beginning and end:");
+                    list.display();
+                    break;
+                default :
+                    System.out.println("Wrong Choice");
+            }
+        }
+    }
+}
